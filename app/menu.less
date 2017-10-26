@@ -1,0 +1,117 @@
+@font-face {
+	font-family: typicons;
+	src: url(../typicons.ttf);
+}
+@font-face {
+	font-family: logoicons;
+	src: url(../logo.ttf);
+}
+div.menu {
+	@t-in:0ms;
+	@t-out:150ms;
+	font-size: 14px;
+	position: relative;
+	white-space: nowrap;
+	& * {
+		display: flex;
+		justify-content: space-between;
+		flex: 1 0 auto;
+	}
+	& > span {
+		/* Le bouton principal */
+		font-size: 1.5em;
+		width: 1em;
+		height: 1em;
+		display: inline-flex;
+		justify-content: center;
+		text-align: center;
+		font-family: typicons;
+		line-height: 1em;
+		cursor: pointer;
+		padding: .25em;
+		color: #3a923a;
+		&:focus {
+			outline: none;
+			color: black;
+			background-color: #f0f0f0;
+			transition-delay: 0s;
+			& + * {
+				transform: scale(1);
+				transition-duration: @t-in;
+				transition-delay: @t-in;
+			}
+		}
+		& + * {
+			transform: scale(1, 0);
+			transform-origin: right top;
+			transition-property: transform;
+			transition-duration: @t-out;
+			transition-delay: .25s;
+			transition-timing-function: linear;
+		}
+	}
+	& ul {
+		/* Tous les sous-menus */
+		position: absolute;
+		z-index: 1000;
+		background-color: #f0f0f0;
+		color: black;
+		box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.5);
+		left: 0;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+		flex-direction: column;
+	}
+	& li {
+		/* Tous les éléments de menu */
+		position: relative;
+		cursor: pointer;
+		align-items: center;
+		&:hover {
+			background-color: rgba(0, 0, 0, 0.1);
+		}
+		& > ul {
+			display: none;
+			left: 100%;
+			top: 0;
+			margin-top: .25em;
+			margin-left: -1.5em;
+			&:not(:empty) + * {
+				flex: 0 1 auto;
+				margin-right: .5em;
+				&:before {
+					font-family: typicons;
+					font-size: smaller;
+					content: "\E116";
+				}
+			}
+		}
+		&:hover > ul {
+			display: flex;
+		}
+	}
+	& a.label,
+	& div.label {
+		/* Les étiquettes */
+		padding: .5em;
+		align-items: center;
+		& > * {
+			flex: 1 0 0px;
+		}
+		& > *.icone {
+			padding: .25em;
+			margin-right: .5em;
+			flex: 0 1 auto;
+		}
+		&.logo > *.icone {
+			font-family: logoicons;
+		}
+		&.actif > *.icone {
+			background-color: rgba(0, 0, 0, 0.1);
+			&:before {
+				content: "\e11d";
+			}
+		}
+	}
+}

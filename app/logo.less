@@ -1,0 +1,205 @@
+@import url("menu.css");
+@font-face {
+	font-family: typicons;
+	src: url(../typicons.font/src/font/typicons.ttf);
+}
+@font-face {
+	font-family: logoicons;
+	src: url(../images/logo.ttf);
+}
+
+@couleur:hsl(120, 43%, 40%);
+@fond:hsl(120, 43%, 80%);
+header {
+	overflow: hidden;
+}
+.icone {
+	width: 1em;
+	height: 1em;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+	font-family: typicons;
+	line-height: 1em;
+	cursor: pointer;
+}
+section {
+	position: relative;
+	box-sizing: border-box;
+}
+div#ide {
+	display:flex;
+	align-self: stretch;
+	flex: 1 0 0;
+	height: 100%;
+}
+section#icones {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+    padding-bottom: .5rem;
+    & > * + * {
+        margin-left: .1em;
+    }
+	& > *.vitesse {
+		font-size:smaller;
+		flex: 1 0 0;
+		display: flex;
+		flex-direction: column-reverse;
+		line-height:.8;
+		border: 2px solid;
+		border-radius: .5em;
+		color: @couleur;
+		background-color: @fond;
+		overflow: hidden;
+		& > * {
+			width: auto;
+		}
+		& > label {
+			display: flex;
+			justify-content: space-between;
+			font-size: smaller;
+			background-color: @couleur;
+			color: @fond;
+			padding: 2px 0 1px;
+			&:before {
+				flex: 0 0 1.5em;
+				text-align:center;
+				font-family: typicons;
+				content: "\e0bd";
+			}
+			&:after {
+				flex: 0 0 1.5em;
+				text-align:center;
+				font-family: typicons;
+				content: "\e0cf";
+			}
+		}
+	}
+}
+div.bouton {
+	font-family: typicons;
+	background-color: hsl(120, 43%, 80%);
+    border:2px solid;
+	font-size: 2em;
+	.icone;
+    border-radius: 100%;
+//	text-shadow: -1px -1px 1px rgba(0,0,0,.5), 1px 1px 1px rgba(255,255,255,.8);
+//	box-shadow: -2px -2px 2px rgba(0,0,0,.5) inset, 2px 2px 2px rgba(255,255,255,.8) inset;
+	color: hsl(120, 43%, 40%);
+	&.effacer:before {
+		content: "\e0d9";
+	}
+	&.lire {
+		&:before {
+			content: "\e0ad";
+		}
+		& + * {
+			display: none;
+		}
+		&.actif {
+			display: none;
+			& + * {
+				display: inherit;
+			}
+			& + * ~ * {
+				background-color:#ccc;
+				color:#999;
+			}
+		}
+	}
+	&.pause {
+		background-color: yellow;
+		color: #999900;
+		&:before {
+			content: "\e0ab";
+		}
+	}
+	&.avancer:before {
+		content: "\e048";
+	}
+	&.entrer:before {
+		content: "\e007";
+	}
+	&.sortir:before {
+		content: "\e022";
+	}
+}
+section#plan {
+	flex: 1 1 auto;
+    & > svg {
+        display:block;
+        box-shadow: 0 0 1em rgba(0,0,0, .3) inset;
+		align-self: flex-start;
+	}
+	& path {
+		stroke:#008000;
+		fill: none;
+	}
+}
+section#control {
+	display:flex;
+    flex-direction:column;
+    flex: 0 0 auto;
+    min-width: 15em;
+    padding: .5em;
+    background-color:lightgray;
+}
+section#code {
+	position: relative;
+	display:flex;
+	flex: 1 0 auto;
+	min-height: 250px;
+	align-items: stretch;
+	flex-direction: column;
+//	padding-bottom: .5em;
+	&>div.ace_editor {
+		position: relative;
+		display:flex;
+		flex: 1 0 0;
+		align-items: stretch;
+
+	}
+}
+#curseur {
+	fill: black;
+	stroke: none;
+}
+#curseur-visible {
+	transition:2s;
+	zzfill:red;
+}
+#curseur-visible:hover {
+	zzfill:blue;
+}
+.ace_line {
+	background-color: rgba(255,255,0,0);
+    transition: .5s;
+}
+#pointeur {
+	background-color: rgba(255,255,0,1);
+    transition: none;
+}
+.ace_gutter-cell.ace_breakpoint{
+    border-radius: 20px 0px 0px 20px;
+    box-shadow: 0px 0px 1px 1px red inset;
+}
+*.poignee {
+    position: absolute;
+	right: 0;
+	bottom: 0;
+	&.vertical {
+		top: 0;
+		width: 5px;
+		cursor: ew-resize;
+	}
+	&.horizontal {
+		left: 0;
+		height: 5px;
+		cursor: ns-resize;
+	}
+	&:hover {
+		background-color: rgba(0,0,0,.1);
+	}
+}

@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html lang="fr">
+<head>
+	<meta charset="UTF-8">
+	<title>LOGO : Apprendre la programmation</title>
+	<link rel="icon" type="image/png" href="favicon.png" />
+	<link rel="stylesheet" href="app/page.css" media="all" />
+	<link rel="stylesheet" href="app/logo.css" media="all" />
+<!--	<link rel="stylesheet" href="font-awesome-4.7.0/css/font-awesome.min.css" media="all" />-->
+	<script src="ace-builds/src-min-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
+<!--	<script src="app/mode-logo.js" type="text/javascript" charset="utf-8"></script>-->
+	<script src="app/Main.js"></script>
+	<script src="app/Menu.js"></script>
+	<script src="app/Point.js"></script>
+	<script src="app/Ide.js"></script>
+	<script src="app/Logo.js"></script>
+	<script src="app/Curseur.js"></script>
+	<script src="app/Trace.js"></script>
+	<script>
+        window.addEventListener("load", function () {
+            var ide, instructions;
+            ide = new Ide();
+			ide.ajouterDom("conteneur-logo");
+        });
+    </script>
+</head>
+<body>
+	<div class="interface">
+		<header>
+			<div id="logologo">
+				<svg viewBox="-.5 -6 6 6">
+					<use xlink:href="#curseur" transform="rotate(-60)"></use>
+				</svg>
+			</div>
+<!--			<h1>LOGO : Apprendre en apprenant</h1>-->
+			<h1>LOGO : Initiation à la programmation</h1>
+			<div id="menu"></div>
+			<div class="bandeau"><span>Version<br/>pré-alpha</span></div>
+		</header>
+		<footer>
+			<p>&copy; 2017 - Copyright</p>
+		</footer>
+		<section class="body" id="conteneur-logo"></section>
+	</div>
+</body>
+</html>
