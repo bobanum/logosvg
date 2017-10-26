@@ -62,13 +62,13 @@ class Langage extends Main {
 		}
 		return fct;
 	}
-	trouverValeur(val, pile) {
+	trouverValeur(variable, pile) {
 		var ptr_pile;
-		val = val.replace(":", "_");
+		variable = variable.replace(":", "_");
 		ptr_pile = pile;
 		while (ptr_pile) {
-			if (ptr_pile[val]) {
-				return this.evaluer(ptr_pile[val]);
+			if (ptr_pile[variable]) {
+				return this.evaluer(ptr_pile[variable]);
 			} else {
 				ptr_pile = ptr_pile.contexte;
 			}
@@ -120,6 +120,30 @@ class Langage extends Main {
 					ins = this.execPatt("repete", instructions);
 					instructions = instructions.substr(ins[0].length);
 					cpt += ins[0].length;
+					nm = parseFloat(ins[2]);
+					nm = ins[2];
+					l = this.analyser(instructions, pile);
+					fct = this.trouverFonction(ins[1], pile);
+					if (!fct) {
+						return 'Erreur';
+					}
+					instructions = instructions.substr(l.length);
+					pile.push({
+						nom: "repete",
+						params: [nm, l.pile],
+						pile: l.pile,
+						fct: fct,
+						contexte: pile,
+						ligne: pile.ligne
+					});
+					pile.ligne = l.ligne;
+					cpt += l.length;
+				} else if (fct === this._make) {
+					ins = this.execPatt("make", instructions);
+					debugger;
+					instructions = instructions.substr(ins[0].length);
+					instructions = ins[3].trimLeft() + instructions;
+					cpt += ins[0].length - ins[3].trimLeft().length;
 					nm = parseFloat(ins[2]);
 					nm = ins[2];
 					l = this.analyser(instructions, pile);
@@ -253,6 +277,21 @@ class Logo extends Langage {
         this.fill = "none";
         this.strokeWidth = "3";
 	}
+	_to(callback) {
+		console.log("fonction 'pour'", callback);
+	}
+	_repeat(callback, nombre, instructions) {
+		if (!nombre) {
+			return callback();
+		}
+		var that = this;
+		this.differer(instructions, 0, function(){
+			that._repeat(callback, nombre-1, instructions);
+		});
+	}
+	_make(callback, nom, expression) {
+		console.log("fonction 'make'", callback);
+	}
 	_setheading(callback, angle) {
 		var dur, fin;
         fin = new Point();
@@ -315,15 +354,6 @@ class Logo extends Langage {
 		}
 		if (callback) {callback();}
 	}
-	_repeat(callback, nombre, instructions) {
-		if (!nombre) {
-			return callback();
-		}
-		var that = this;
-		this.differer(instructions, 0, function(){
-			that._repeat(callback, nombre-1, instructions);
-		});
-	}
 	_hideturtle(callback) {
 		this.curseur.dom.style.display = 'none';
 		callback();
@@ -345,9 +375,6 @@ class Logo extends Langage {
 			this._pendown();
 		}
 		if (callback) {callback();}
-	}
-	_to(callback) {
-		console.log("fonction 'pour'", callback);
 	}
 	_setpencolor(callback, r, g, b) {
 		var bas = this.bas;
@@ -375,6 +402,7 @@ class Logo extends Langage {
 	static creerPatterns() {
 		super.creerPatterns();
 		this.patterns.variable = "\\:" + this.patterns.identifiant;
+		this.patterns.make_variable = "\\\"" + this.patterns.identifiant;
 		this.patterns.valeur = this.patt_alternance([this.patterns.variable, this.patterns.nombre]);
 		this.patterns.operateurs = "(?:" + ["+", "-", "*", "/", "%"].map(this.escape).join("|") + ")";
 		this.patterns.expression = this.patterns.valeur+"(?:\\s*"+this.patterns.operateurs+"\\s*"+this.patterns.valeur+")*";
@@ -386,6 +414,13 @@ class Logo extends Langage {
             "("+this.patterns.identifiant+")",
             "\\s("+this.patterns.expression+")",
             "\\[",
+            ""
+        ]);
+        this.patterns.make = this.patt_joindre([
+            "^",
+            "("+this.patterns.identifiant+")",
+            "\\s("+this.patterns.make_variable+")",
+            "("+this.patterns.expression+")",
             ""
         ]);
         this.patterns.pour = this.patt_joindre([
@@ -423,6 +458,7 @@ class Logo extends Langage {
 			'_setpencolor':		['setpencolor', 'setpencolour', 'setpc'],
 			'_setscreencolor':	['setscreencolor', 'setscreencolour', 'setbackground', 'setsc', 'setbg'],
 			'_fill':			['fill'],
+			'_make':			['make'],
 
 			'_penup':			['penup', 'pu'],
 			'_pendown':			['pendown', 'pd']
@@ -440,7 +476,7 @@ class Logo extends Langage {
 			'_setheading':		['fixecap', 'fcap'],
 			'_setpencolor':		['fixecouleurcrayon', 'fcc'],
 			'_setscreencolor':	['fixecouleurfond', 'fcf'],
-			'_fill':			['remplir'],
+			'_make':			['donne'],
 
 			'_penup':			['lc', 'levecrayon', 'leve'],
 			'_pendown':			['bc', 'baissecrayon', 'baisse']
