@@ -1,0 +1,51 @@
+pour carre :taille [
+	repete 4 [
+		avance :taille
+		droite 90
+	]
+]
+pour cube :taille [
+	repete 6 [
+		avance :taille
+		gauche 60
+	]
+	repete 2 [
+		gauche 60
+		avance :taille
+	]
+	leve
+	recule :taille
+	droite 120
+	baisse
+	avance :taille
+]
+droite 45
+avance 20+20
+baisse
+fixecouleurcrayon 255 0 0
+DROITE 45
+carre 15
+cube 5
+avance 5
+fixecouleurfond 255 200 200
+fixecouleurcrayon 0 255 0
+carre 25
+vide
+baisse
+cube 10
+remplir 0 0 255
+fixecouleurcrayon 255 255 0
+repete 9+9 [
+	droite 140
+	avance 10
+	gauche 160
+	avance 10
+]
+leve
+repete 2 [
+	avance 10
+	droite 90
+	baisse
+	leve
+]
+montre

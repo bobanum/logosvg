@@ -1,6 +1,6 @@
 #!/bin/bash
 chemin=$(dirname "$0")
-port=`expr "$0" : '.*_\([0-9]*\)\.sh'`
+port=`expr "$0" : '.*[_\.]\([0-9]*\)\.sh'`
 if [ ! $port ]
 then
 ((port=8000))

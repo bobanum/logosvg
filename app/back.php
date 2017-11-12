@@ -15,4 +15,3 @@ class Back {
 	}
 }
 Back::load();
-Back::load();

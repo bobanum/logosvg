@@ -2,11 +2,11 @@
 @import url("menu.css");
 @font-face {
   font-family: typicons;
-  src: url(../typicons.ttf);
+  src: url(../typicons.font/src/font/typicons.ttf);
 }
 @font-face {
   font-family: logoicons;
-  src: url(../logo.ttf);
+  src: url(../images/logo.ttf);
 }
 header {
   overflow: hidden;

@@ -1,10 +1,10 @@
 /*jslint esnext:true, browser: true,evil:true*/
-/*globals ace,Main,Logo,Menu,ElementMenu*/
+/*globals ace,Main,Menu,ElementMenu*/
 class Ide extends Main {
 	constructor() {
 		super();
         this.encours = undefined;
-        this.langage = new Logo(this);
+        this.langage = new Ide.langage(this);
 		this.latence = 1000;
 		this.menu = new Menu();
 		this.menu.ajouter(this.menu_ouvrir());
@@ -264,7 +264,7 @@ class Ide extends Main {
 		resultat = new ElementMenu({obj:this, icone:"&#xe125;", label:"Ouvrir"});
 		xhr = new XMLHttpRequest();
 		xhr.obj = this;
-		xhr.open("get", "0.0.6/back.php?lf");
+		xhr.open("get", "app/back.php?lf");
 		xhr.addEventListener("load", function () {
 			var liste, i, n;
 			liste = JSON.parse(this.responseText);
@@ -312,12 +312,7 @@ class Ide extends Main {
 		});
 		xhr.send(null);
 	}
-	static init() {
-        this.prototype.prefs = {
-			vitesse: 8,
-			grille_couleur: "#999999",
-			grille_opacity: 0.2
-		};
+	static setEvents() {
 		this.evt = {
             btn_effacer: {
                 click: function () {
@@ -379,6 +374,15 @@ class Ide extends Main {
                 }
             }
         };
+	}
+	static init() {
+        this.langage = null; // Sera renseigné par le langage lui-même au chargement
+		this.prototype.prefs = {
+			vitesse: 8,
+			grille_couleur: "#999999",
+			grille_opacity: 0.2
+		};
+		this.setEvents();
 	}
 }
 Ide.init();
