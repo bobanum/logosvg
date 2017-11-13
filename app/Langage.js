@@ -251,11 +251,23 @@ class Langage extends Main {
         mod=mod || "";
         return "(?:\\s+"+element+")"+mod;
     }
+	setPattern(name, str) {
+		var variable;
+		if (str instanceof Array) {
+			str = "(?:" + str.join("|") + ")";
+		}
+		while (variable = str.match(/\{([a-zA-Z][a-zA-Z0-9_]*)\}/), variable) {
+			str = str.replace(variable[0], this.patterns[variable[1]]);
+			break;
+		}
+		this.patterns[name] = str;
+		return str;
+	}
 	creerPatterns() {
 		this.patterns = {};
-		this.patterns.identifiant = "[a-z][a-z0-9_]*";
-		this.patterns.nombre = "[\\+\\-]?(?:[0-9]+(?:\\.[0-9]+)?|\\.[0-9]+)";
-		this.patterns.entierPositif = "[0-9]+";
+		this.setPattern("identifiant", "[a-zA-z][a-zA-z0-9_]*");
+		this.setPattern("entierPositif", "[0-9]+");
+		this.setPattern("nombre", "[\\+\\-]?(?:{entierPositif}(?:\\.{entierPositif})?|\\.{entierPositif})");
         return this;
 	}
     static init() {

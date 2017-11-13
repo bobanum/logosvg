@@ -52,6 +52,7 @@ class Langage_Logo extends Langage {
 		this._right(callback, -angle);
 	}
 	_forward(callback, d) {
+		debugger;
 		var dep, dur, fin;
         fin = new Point();
         fin = fin.placer(this.curseur);
@@ -139,46 +140,46 @@ class Langage_Logo extends Langage {
 		if (!this.patterns) {
 			super.creerPatterns();
 		}
-		this.patterns.variable = "\\:" + this.patterns.identifiant;
-		this.patterns.make_variable = "\\\"" + this.patterns.identifiant;
-		this.patterns.valeur = this.patt_alternance([this.patterns.variable, this.patterns.nombre]);
-		this.patterns.operateurs = "(?:" + ["+", "-", "*", "/", "%"].map(this.escape).join("|") + ")";
-		this.patterns.expression = this.patterns.valeur+"(?:\\s*"+this.patterns.operateurs+"\\s*"+this.patterns.valeur+")*";
-		this.patterns.paramsPour = this.patt_serie(this.patterns.variable);
-		this.patterns.paramsAppel = this.patt_serie(this.patterns.expression);
-		this.patterns.finInstruction = this.patt_alternance(["\\s+","$","\\)","\\]","\\}"]);
-        this.patterns.repete = this.patt_joindre([
+		this.setPattern("variable", "\\:{identifiant}");
+		this.setPattern("make_variable", "\\\"{identifiant}");
+		this.setPattern("valeur", [this.patterns.variable, this.patterns.nombre]);
+		this.setPattern("operateurs", "(?:" + ["+", "-", "*", "/", "%"].map(this.escape).join("|") + ")");
+		this.setPattern("expression", "{valeur}(?:\\s*{operateurs}\\s*{valeur})*");
+		this.setPattern("paramsPour", this.patt_serie(this.patterns.variable));
+		this.setPattern("paramsAppel", this.patt_serie(this.patterns.expression));
+		this.setPattern("finInstruction", ["\\s+","$","\\)","\\]","\\}"]);
+        this.setPattern("repete", this.patt_joindre([
             "^",
-            "("+this.patterns.identifiant+")",
-            "\\s("+this.patterns.expression+")",
+            "({identifiant})",
+            "\\s({expression})",
             "\\[",
             ""
-        ]);
-        this.patterns.make = this.patt_joindre([
+        ]));
+        this.setPattern("make", this.patt_joindre([
             "^",
-            "("+this.patterns.identifiant+")",
-            "\\s("+this.patterns.make_variable+")",
-            "("+this.patterns.expression+")",
+            "({identifiant})",
+            "\\s({make_variable})",
+            "({expression})",
             ""
-        ]);
-        this.patterns.pour = this.patt_joindre([
+        ]));
+        this.setPattern("pour", this.patt_joindre([
             "^",
-            "("+this.patterns.identifiant+")",
-            "\\s("+this.patterns.identifiant+")",
-            "("+this.patterns.paramsPour+"*)",
+            "({identifiant})",
+            "\\s({identifiant})",
+            "({paramsPour}*)",
             "\\[",
             ""
-        ]);
-        this.patterns.appel = this.patt_joindre([
+        ]));
+        this.setPattern("appel", this.patt_joindre([
             "^",
-            "("+this.patterns.identifiant+")("+this.patterns.paramsAppel+"*)",
-            "("+this.patterns.finInstruction+")"
-        ]);
-        this.patterns.bloc_fin = this.patt_joindre([
+            "({identifiant})({paramsAppel}*)",
+            "({finInstruction})"
+        ]));
+        this.setPattern("bloc_fin", this.patt_joindre([
             "^",
             "\]",
-            "("+this.patterns.finInstruction+")"
-        ]);
+            "({finInstruction})"
+        ]));
 	}
 	static init() {
 		this.prototype.commandes = {};

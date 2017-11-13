@@ -20,7 +20,6 @@ class Ide extends Main {
 	}
 	set code(val) {
 		this.editor.setValue(val, -1);
-
 	}
 	get vitesse() {
         var v = 200 * Math.pow(1 - (this._vitesse.value / 11), 2);
