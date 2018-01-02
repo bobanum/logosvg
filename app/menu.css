@@ -7,17 +7,17 @@
   font-family: logoicons;
   src: url(../logo.ttf);
 }
-div.menu {
+div.main {
   font-size: 14px;
   position: relative;
   white-space: nowrap;
 }
-div.menu * {
+div.main * {
   display: flex;
   justify-content: space-between;
   flex: 1 0 auto;
 }
-div.menu > span {
+div.main > div {
   /* Le bouton principal */
   font-size: 1.5em;
   width: 1em;
@@ -31,26 +31,25 @@ div.menu > span {
   padding: .25em;
   color: #3a923a;
 }
-div.menu > span:focus {
+div.main > div:focus {
   outline: none;
   color: black;
   background-color: #f0f0f0;
   transition-delay: 0s;
 }
-div.menu > span:focus + * {
+div.main > div:focus + * {
   transform: scale(1);
   transition-duration: 0ms;
   transition-delay: 0ms;
 }
-div.menu > span + * {
-  transform: scale(1, 0);
+div.main > div + * {
   transform-origin: right top;
   transition-property: transform;
   transition-duration: 150ms;
   transition-delay: .25s;
   transition-timing-function: linear;
 }
-div.menu ul {
+div.main ul {
   /* Tous les sous-menus */
   position: absolute;
   z-index: 1000;
@@ -63,59 +62,59 @@ div.menu ul {
   list-style: none;
   flex-direction: column;
 }
-div.menu li {
+div.main li {
   /* Tous les éléments de menu */
   position: relative;
   cursor: pointer;
   align-items: center;
 }
-div.menu li:hover {
+div.main li:hover {
   background-color: rgba(0, 0, 0, 0.1);
 }
-div.menu li > ul {
-  display: none;
+div.main li > ul {
+  zzzdisplay: none;
   left: 100%;
   top: 0;
   margin-top: .25em;
   margin-left: -1.5em;
 }
-div.menu li > ul:not(:empty) + * {
+div.main li > ul:not(:empty) + * {
   flex: 0 1 auto;
   margin-right: .5em;
 }
-div.menu li > ul:not(:empty) + *:before {
+div.main li > ul:not(:empty) + *:before {
   font-family: typicons;
   font-size: smaller;
   content: "\E116";
 }
-div.menu li:hover > ul {
+div.main li:hover > ul {
   display: flex;
 }
-div.menu a.label,
-div.menu div.label {
+div.main a.label,
+div.main div.label {
   /* Les étiquettes */
   padding: .5em;
   align-items: center;
 }
-div.menu a.label > *,
-div.menu div.label > * {
+div.main a.label > *,
+div.main div.label > * {
   flex: 1 0 0px;
 }
-div.menu a.label > *.icone,
-div.menu div.label > *.icone {
+div.main a.label > *.icon,
+div.main div.label > *.icon {
   padding: .25em;
   margin-right: .5em;
   flex: 0 1 auto;
 }
-div.menu a.label.logo > *.icone,
-div.menu div.label.logo > *.icone {
+div.main a.label.logo > *.icon,
+div.main div.label.logo > *.icon {
   font-family: logoicons;
 }
-div.menu a.label.actif > *.icone,
-div.menu div.label.actif > *.icone {
+div.main a.label.active > *.icon,
+div.main div.label.active > *.icon {
   background-color: rgba(0, 0, 0, 0.1);
 }
-div.menu a.label.actif > *.icone:before,
-div.menu div.label.actif > *.icone:before {
+div.main a.label.active > *.icon:before,
+div.main div.label.active > *.icon:before {
   content: "\e11d";
 }

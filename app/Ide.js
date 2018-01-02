@@ -1,5 +1,5 @@
 /*jslint esnext:true, browser: true,evil:true*/
-/*globals ace,Main,Menu,ElementMenu*/
+/*globals ace,Main,Menu*/
 class Ide extends Main {
 	constructor() {
 		super();
@@ -7,9 +7,11 @@ class Ide extends Main {
         this.langage = new Ide.langage(this);
 		this.latence = 1000;
 		this.menu = new Menu();
-		this.menu.ajouter(this.menu_ouvrir());
-		this.menu.ajouter({obj:this, icone:"&#xe064;", label:"Sauvegarder"});
-		this.menu.ajouter({obj:this, icone:"", label:"Affichage de la grille", click: Ide.evt.mnu_grille});
+		this.menu.class = "main";
+		this.menu.icon = "&#xE116;";
+		this.menu.add(this.menu_ouvrir());
+		this.menu.add({obj:this, icon:"&#xe064;", label:"Sauvegarder"});
+		this.menu.add({obj:this, icon:"", label:"Affichage de la grille", click: Ide.evt.mnu_grille});
 	}
 	get dom() {
 		if (!this._dom) {this._dom = this.dom_creer();}
@@ -59,7 +61,7 @@ class Ide extends Main {
 		section = document.createElement('section');
 		section.setAttribute('id', 'control');
 		section.style.width = "350px";
-		section.appendChild(this.dom_icones());
+		section.appendChild(this.dom_icons());
 		code = section.appendChild(this.dom_code());
 //		code = section.appendChild(this.dom_console());
 		section.appendChild(this.dom_poignee());
@@ -147,10 +149,10 @@ class Ide extends Main {
 		});
 		return resultat;
 	}
-	dom_icones() {
+	dom_icons() {
 		var resultat, btn;
 		resultat = document.createElement("section");
-		resultat.setAttribute('id', 'icones');
+		resultat.setAttribute('id', 'icons');
 		btn = resultat.appendChild(this.menu.dom);
 		btn = resultat.appendChild(this.dom_bouton("effacer", Ide.evt.btn_effacer, "Effacer"));
         resultat.appendChild(this.dom_vitesse(Ide.evt.sld_vitesse));
@@ -180,11 +182,11 @@ class Ide extends Main {
         }
 		return resultat;
 	}
-	dom_bouton(icone, evts, title) {
+	dom_bouton(icon, evts, title) {
 		var resultat;
 		resultat = document.createElement("div");
 		resultat.classList.add('bouton');
-		resultat.classList.add(icone);
+		resultat.classList.add(icon);
         resultat.obj = this;
         if (evts) {
             this.addEventListeners(resultat, evts);
@@ -260,7 +262,7 @@ class Ide extends Main {
 	}
 	menu_ouvrir() {
 		var resultat, xhr;
-		resultat = new ElementMenu({obj:this, icone:"&#xe125;", label:"Ouvrir"});
+		resultat = new Menu({obj:this, icon:"&#xe125;", label:"Ouvrir"});
 		xhr = new XMLHttpRequest();
 		xhr.obj = this;
 		xhr.open("get", "app/back.php?lf");
@@ -268,10 +270,10 @@ class Ide extends Main {
 			var liste, i, n;
 			liste = JSON.parse(this.responseText);
 			for (i = 0, n = liste.length; i < n; i += 1) {
-				resultat.ajouter({
+				resultat.add({
 					obj:this.obj,
 					class:"logo",
-					icone: "B",
+					icon: "B",
 					label:liste[i],
 					fic: liste[i],
 					click:function () {

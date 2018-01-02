@@ -11,7 +11,7 @@
 header {
   overflow: hidden;
 }
-.icone {
+.icon {
   width: 1em;
   height: 1em;
   display: inline-flex;
@@ -32,16 +32,16 @@ div#ide {
   flex: 1 0 0;
   height: 100%;
 }
-section#icones {
+section#icons {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding-bottom: .5rem;
 }
-section#icones > * + * {
+section#icons > * + * {
   margin-left: .1em;
 }
-section#icones > *.vitesse {
+section#icons > *.vitesse {
   font-size: smaller;
   flex: 1 0 0;
   display: flex;
@@ -53,10 +53,10 @@ section#icones > *.vitesse {
   background-color: #b6e2b6;
   overflow: hidden;
 }
-section#icones > *.vitesse > * {
+section#icons > *.vitesse > * {
   width: auto;
 }
-section#icones > *.vitesse > label {
+section#icons > *.vitesse > label {
   display: flex;
   justify-content: space-between;
   font-size: smaller;
@@ -64,13 +64,13 @@ section#icones > *.vitesse > label {
   color: #b6e2b6;
   padding: 2px 0 1px;
 }
-section#icones > *.vitesse > label:before {
+section#icons > *.vitesse > label:before {
   flex: 0 0 1.5em;
   text-align: center;
   font-family: typicons;
   content: "\e0bd";
 }
-section#icones > *.vitesse > label:after {
+section#icons > *.vitesse > label:after {
   flex: 0 0 1.5em;
   text-align: center;
   font-family: typicons;

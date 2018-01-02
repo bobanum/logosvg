@@ -168,6 +168,8 @@ class Langage extends Main {
 		params.unshift(callback);
 		if (typeof instruction.fct === 'function') {
 			instruction.fct.apply(this, params);
+		} else if (typeof instruction.fct === 'string') {
+			this[instruction.fct].apply(this, params);
 		} else {
 			nomsvars = instruction.fct.params[0];
 			for (i = 0, n = nomsvars.length; i < n; i++) {

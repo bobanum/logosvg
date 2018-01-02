@@ -7,3 +7,9 @@
 [submodule "typicons.font"]
 	path = typicons.font
 	url = https://github.com/stephenhutchings/typicons.font.git
+[submodule "jsapp"]
+	path = jsapp
+	url = https://github.com/bobanum/jsapp.git
+[submodule "jsmenu"]
+	path = jsmenu
+	url = https://github.com/bobanum/jsmenu.git

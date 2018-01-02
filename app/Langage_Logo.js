@@ -1,5 +1,5 @@
 /*jslint esnext:true, browser: true,evil:true*/
-/*globals Ide, Langage, Parser*/
+/*globals Ide, Langage*/
 class Langage_Logo extends Langage {
 	constructor(ide) {
 		super(ide);
@@ -35,6 +35,7 @@ class Langage_Logo extends Langage {
 			'_setheading':		['fixecap', 'fcap'],
 			'_setpencolor':		['fixecouleurcrayon', 'fcc'],
 			'_setscreencolor':	['fixecouleurfond', 'fcf'],
+			'_fill':			['remplir'],
 			'_make':			['donne'],
 
 			'_penup':			['lc', 'levecrayon', 'leve'],

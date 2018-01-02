@@ -1,20 +1,51 @@
-/*jslint esnext:true, browser: true,evil:true*/
-class ElementMenu {
+/*jslint esnext:true, browser:true, evil:true*/
+/*globals*/
+class Menu {
 	constructor (props) {
 		this.label = "";
-		this.raccourcis = "";
+		this.shortcut = "";
 		this._click = null;
-		this.contenu = [];
-		this.icone = "";
+		this.content = [];
+		this.icon = "";
 		this.parentElement = null;
 		this.class = "";
 		this.actif = null;
 		this.setProperties(props);
+		this._dom = null;
+		this._dom_content = null;
 	}
 	get dom() {
-		if (!this._dom) { this._dom = this.dom_creer(); }
-		return this._dom;
+		if (this._dom) {
+			return this._dom;
+		}
+		var result;
+		result = document.createElement("div");
+		result.classList.add("menu");
+		if (this.class) {
+			result.classList.add(this.class);
+		}
+		result.appendChild(this.dom_label);
+		result.appendChild(this.dom_content);
+
+		this._dom = result;
+		result.obj = this;
+		return result;
 	}
+	get dom_content() {
+		if (this._dom_content) {
+			return this._dom_content;
+		}
+		var result;
+		result = document.createElement("ul");
+		this.content.forEach(function(c) {
+			let li = result.appendChild(document.createElement("li"));
+			li.appendChild(c.dom);
+		}, this);
+		this._dom_content = result;
+		result.obj = this;
+		return result;
+	}
+
 	get click() {
 		return this._click;
 	}
@@ -32,93 +63,56 @@ class ElementMenu {
 		}
 		return this;
 	}
-	dom_creer() {
-		var resultat, span;
-		resultat = document.createElement("li");
-		resultat.appendChild(this.dom_label());
-		resultat.contenu = this.dom_contenu();
-		resultat.appendChild(resultat.contenu);
-
-		span = resultat.appendChild(document.createElement("span"));
-		span.setAttribute("class", "extra");
-
-		return resultat;
-	}
-	dom_label() {
-		var resultat, span;
+	get dom_label() {
+		if (this._dom_label) {
+			return this._dom_label;
+		}
+		var result, span;
 		if (typeof this.click === "string") {
-			resultat = document.createElement("a");
-			resultat.setAttribute("href", this.click);
+			result = document.createElement("a");
+			result.setAttribute("href", this.click);
 		} else if (typeof this.click === "function") {
-			resultat = document.createElement("div");
-			resultat.addEventListener("click", this.click);
+			result = document.createElement("div");
+			result.addEventListener("click", this.click);
 		} else {
-			resultat = document.createElement("div");
+			result = document.createElement("div");
 		}
-		if (this.class) {
-			resultat.setAttribute("class", this.class);
-		}
-		resultat.classList.add("label");
-		resultat.obj = this;
+		result.classList.add("label");
 
-		span = resultat.appendChild(document.createElement("span"));
-		span.setAttribute("class", "icone");
-		span.innerHTML = this.icone;
+		span = result.appendChild(document.createElement("span"));
+		span.classList.add("icon");
+		span.innerHTML = this.icon;
 
-		span = resultat.appendChild(document.createElement("span"));
-		span.setAttribute("class", "label");
+		span = result.appendChild(document.createElement("span"));
+		span.classList.add("label");
 		span.innerHTML = this.label;
 
-		span = resultat.appendChild(document.createElement("span"));
-		span.setAttribute("class", "raccourcis");
-		span.innerHTML = this.raccourcis;
+		span = result.appendChild(document.createElement("span"));
+		span.classList.add("shortcut");
+		span.innerHTML = this.shortcut;
 
-		return resultat;
+		this._dom_label = result;
+		result.obj = this;
+		return result;
 	}
-	dom_contenu() {
-		var resultat, i, n;
-		resultat = document.createElement("ul");
-		for (i = 0, n = this.contenu.length; i < n; i += 1) {
-			resultat.appendChild(this.contenu[i].dom);
-		}
-		return resultat;
+	addElementDom(element) {
+		var result = document.createElement("li");
+		result.appendChild(element.dom);
+		this.dom_content.appendChild(element.dom);
+		return result;
 	}
-	ajouter(element) {
-		if (element instanceof ElementMenu) {
-			this.contenu.push(element);
-			this.dom.contenu.appendChild(element.dom);
+	add(element) {
+		if (element instanceof Menu) {
+			this.content.push(element);
+			if (this._dom) {
+				this.addElementDom(element);
+			}
 		} else if (element instanceof Array) {
-			element.forEach((e)=>(this.ajouter(e)), this);
+			element.forEach((e)=>(this.add(e)), this);
 		} else {
-			this.ajouter(new ElementMenu(element));
+			this.add(new Menu(element));
 		}
 		return this;
-	}
-	static init() {
-
-	}
-}
-ElementMenu.init();
-
-class Menu extends ElementMenu {
-	constructor (props) {
-		super();
-		this.icone = "&#xE116;";
-		this.setProperties(props);
-	}
-	dom_creer() {
-		var resultat, span;
-		resultat = document.createElement("div");
-		resultat.classList.add("menu");
-		if (this.id) {
-			resultat.setAttribute("id", this.id);
-		}
-		span = resultat.appendChild(document.createElement("span"));
-		span.setAttribute("tabindex", "1");
-		span.innerHTML = this.icone;
-		resultat.contenu = this.dom_contenu();
-		resultat.appendChild(resultat.contenu);
-		return resultat;
 	}
 	static init() {
 

@@ -6,7 +6,7 @@
 	font-family: logoicons;
 	src: url(../logo.ttf);
 }
-div.menu {
+div.main {
 	@t-in:0ms;
 	@t-out:150ms;
 	font-size: 14px;
@@ -17,7 +17,7 @@ div.menu {
 		justify-content: space-between;
 		flex: 1 0 auto;
 	}
-	& > span {
+	& > div {
 		/* Le bouton principal */
 		font-size: 1.5em;
 		width: 1em;
@@ -42,7 +42,7 @@ div.menu {
 			}
 		}
 		& + * {
-			transform: scale(1, 0);
+//			transform: scale(1, 0);
 			transform-origin: right top;
 			transition-property: transform;
 			transition-duration: @t-out;
@@ -72,7 +72,7 @@ div.menu {
 			background-color: rgba(0, 0, 0, 0.1);
 		}
 		& > ul {
-			display: none;
+			zzzdisplay: none;
 			left: 100%;
 			top: 0;
 			margin-top: .25em;
@@ -99,15 +99,15 @@ div.menu {
 		& > * {
 			flex: 1 0 0px;
 		}
-		& > *.icone {
+		& > *.icon {
 			padding: .25em;
 			margin-right: .5em;
 			flex: 0 1 auto;
 		}
-		&.logo > *.icone {
+		&.logo > *.icon {
 			font-family: logoicons;
 		}
-		&.actif > *.icone {
+		&.active > *.icon {
 			background-color: rgba(0, 0, 0, 0.1);
 			&:before {
 				content: "\e11d";
