@@ -1,5 +1,5 @@
 /*jslint esnext:true, browser: true,evil:true*/
-/*globals Point, Main, Trace*/
+/*globals Point, Main*/
 class Curseur extends Point {
 	constructor(langage) {
 		super();

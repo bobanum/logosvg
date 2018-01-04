@@ -6,7 +6,7 @@ class Back {
 		}
 	}
 	static function listFiles() {
-		$root = "../codes/";
+		$root = dirname(__FILE__) . "/../codes/";
 		$result = glob($root . "*.logo");
 		$result = array_map(function ($n) use ($root) {
 			return substr($n, strlen($root), -5);

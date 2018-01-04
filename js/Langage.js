@@ -1,5 +1,5 @@
 /*jslint esnext:true, browser: true,evil:true*/
-/*globals Main, Point, Curseur, Trace*/
+/*globals Main, Parser, Point, Curseur, Trace*/
 class Langage extends Main {
 	constructor(ide) {
 		super();

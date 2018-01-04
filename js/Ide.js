@@ -265,7 +265,7 @@ class Ide extends Main {
 		resultat = new Menu({obj:this, icon:"&#xe125;", label:"Ouvrir"});
 		xhr = new XMLHttpRequest();
 		xhr.obj = this;
-		xhr.open("get", "app/back.php?lf");
+		xhr.open("get", "api.php?lf");
 		xhr.addEventListener("load", function () {
 			var liste, i, n;
 			liste = JSON.parse(this.responseText);
