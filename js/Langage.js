@@ -25,7 +25,7 @@ class Langage extends Main {
 	}
 	_setheading(callback, angle) {
 		var dur, fin;
-        fin = new Point();
+        fin = new Curseur();
         fin = fin.placer(this.curseur);
         fin._a = Math.degRad(angle);
 		dur = Math.abs(angle) * this.ide.vitesse / 10;
@@ -35,7 +35,7 @@ class Langage extends Main {
 	}
 	_right(callback, angle) {
 		var dur, fin;
-        fin = new Point();
+        fin = new Curseur();
         fin = fin.placer(this.curseur);
         fin._a += Math.degRad(angle);
 		dur = Math.abs(angle) * this.ide.vitesse / 10;

@@ -7,6 +7,7 @@ class Ide extends Main {
         this.langage = new Ide.langage(this);
 		this.latence = 1000;
 		this.menu = new Menu();
+		this.menu.balise = "li";
 		this.menu.class = "main";
 		this.menu.icon = "&#xE116;";
 		this.menu.add(this.menu_ouvrir());
@@ -151,7 +152,7 @@ class Ide extends Main {
 	}
 	dom_icons() {
 		var resultat, btn;
-		resultat = document.createElement("section");
+		resultat = document.createElement("ul");
 		resultat.setAttribute('id', 'icons');
 		btn = resultat.appendChild(this.menu.dom);
 		btn = resultat.appendChild(this.dom_bouton("effacer", Ide.evt.btn_effacer, "Effacer"));
@@ -165,7 +166,7 @@ class Ide extends Main {
 	}
 	dom_vitesse(evts) {
 		var resultat, label, input;
-		resultat = document.createElement("div");
+		resultat = document.createElement("li");
 		resultat.classList.add("vitesse");
 		label = resultat.appendChild(document.createElement("label"));
 		label.innerHTML = "Vitesse";
@@ -184,7 +185,7 @@ class Ide extends Main {
 	}
 	dom_bouton(icon, evts, title) {
 		var resultat;
-		resultat = document.createElement("div");
+		resultat = document.createElement("li");
 		resultat.classList.add('bouton');
 		resultat.classList.add(icon);
         resultat.obj = this;

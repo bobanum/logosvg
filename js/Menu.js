@@ -8,6 +8,7 @@ class Menu {
 		this.content = [];
 		this.icon = "";
 		this.parentElement = null;
+		this.balise = "li";
 		this.class = "";
 		this.actif = null;
 		this.setProperties(props);
@@ -19,7 +20,7 @@ class Menu {
 			return this._dom;
 		}
 		var result;
-		result = document.createElement("div");
+		result = document.createElement(this.balise);
 		result.classList.add("menu");
 		if (this.class) {
 			result.classList.add(this.class);

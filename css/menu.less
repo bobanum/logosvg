@@ -1,10 +1,148 @@
 @import url(fonts.css);
-div.main {
+/*Menu en général*/
+.menu-highlight {
+	background-color: rgb(0, 0, 153);
+	color: white;
+}
+.icon {
+	width: 1em;
+	height: 1em;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+	font-family: typicons;
+	line-height: 1em;
+	cursor: pointer;
+}
+.bouton {
+	font-family: typicons;
+	background-color: hsl(120, 43%, 80%);
+    border:2px solid;
+	font-size: 2em;
+	.icon;
+    border-radius: 100%;
+	color: hsl(120, 43%, 40%);
+	&.effacer:before {
+		content: "\e0d9";
+	}
+	&.lire {
+		&:before {
+			content: "\e0ad";
+		}
+		& + * {
+			display: none;
+		}
+		&.actif {
+			display: none;
+			& + * {
+				display: inherit;
+			}
+			& + * ~ * {
+				background-color:#ccc;
+				color:#999;
+			}
+		}
+	}
+	&.pause {
+		background-color: yellow;
+		color: #999900;
+		&:before {
+			content: "\e0ab";
+		}
+	}
+	&.avancer:before {
+		content: "\e048";
+	}
+	&.entrer:before {
+		content: "\e007";
+	}
+	&.sortir:before {
+		content: "\e022";
+	}
+}
+*.menu {
+	white-space: nowrap;
+	&:not(:hover) > ul {
+		display:none;
+	}
+	& ul {
+		/* Tous les sous-menus */
+		position: absolute;
+		z-index: 1000;
+		background-color: #f0f0f0;
+		color: black;
+		box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.5);
+		left: 0;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+		flex-direction: column;
+	}
+	& ul ul {
+		left: 100%;
+	}
+	& li {
+		/* Tous les éléments de menu */
+		position: relative;
+		cursor: pointer;
+		align-items: center;
+		&:hover {
+			.menu-highlight;
+		}
+		& > ul {
+			position: absolute;
+			left: 100%;
+			top: 0;
+			margin-left: -0.5em;
+			&:not(:empty) + * {
+				flex: 0 1 auto;
+				margin-right: .5em;
+				&:before {
+					font-family: typicons;
+					font-size: smaller;
+					content: "\E116";
+				}
+			}
+		}
+	}
+	& a.label,
+	& div.label {
+		/* Les étiquettes */
+		padding: .5em;
+		align-items: center;
+		& > * {
+			flex: 1 0 0px;
+		}
+		& > *.icon {
+			padding: .25em;
+			margin-right: .5em;
+			flex: 0 1 auto;
+		}
+		&.logo > *.icon {
+			font-family: logoicons;
+		}
+		&.active > *.icon {
+			background-color: rgba(0, 0, 0, 0.1);
+			&:before {
+				content: "\e11d";
+			}
+		}
+	}
+}
+*.main {
 	@t-in:0ms;
 	@t-out:150ms;
 	font-size: 14px;
 	position: relative;
-	white-space: nowrap;
+	& > div.label {
+		&:hover {
+			.menu-highlight;
+		}
+		& > .icon {
+			margin:0;
+		}
+	}
 	& * {
 		display: flex;
 		justify-content: space-between;
@@ -41,70 +179,6 @@ div.main {
 			transition-duration: @t-out;
 			transition-delay: .25s;
 			transition-timing-function: linear;
-		}
-	}
-	& ul {
-		/* Tous les sous-menus */
-		position: absolute;
-		z-index: 1000;
-		background-color: #f0f0f0;
-		color: black;
-		box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.5);
-		left: 0;
-		margin: 0;
-		padding: 0;
-		list-style: none;
-		flex-direction: column;
-	}
-	& li {
-		/* Tous les éléments de menu */
-		position: relative;
-		cursor: pointer;
-		align-items: center;
-		&:hover {
-			background-color: rgba(0, 0, 0, 0.1);
-		}
-		& > ul {
-			zzzdisplay: none;
-			left: 100%;
-			top: 0;
-			margin-top: .25em;
-			margin-left: -1.5em;
-			&:not(:empty) + * {
-				flex: 0 1 auto;
-				margin-right: .5em;
-				&:before {
-					font-family: typicons;
-					font-size: smaller;
-					content: "\E116";
-				}
-			}
-		}
-		&:hover > ul {
-			display: flex;
-		}
-	}
-	& a.label,
-	& div.label {
-		/* Les étiquettes */
-		padding: .5em;
-		align-items: center;
-		& > * {
-			flex: 1 0 0px;
-		}
-		& > *.icon {
-			padding: .25em;
-			margin-right: .5em;
-			flex: 0 1 auto;
-		}
-		&.logo > *.icon {
-			font-family: logoicons;
-		}
-		&.active > *.icon {
-			background-color: rgba(0, 0, 0, 0.1);
-			&:before {
-				content: "\e11d";
-			}
 		}
 	}
 }

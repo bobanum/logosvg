@@ -1,35 +1,27 @@
-@import url("menu.css");
+//@import url("menu.css");
 @couleur:hsl(120, 43%, 40%);
 @fond:hsl(120, 43%, 80%);
 header {
 	overflow: hidden;
 }
 
-.icon {
-	width: 1em;
-	height: 1em;
-	display: inline-flex;
-	align-items: center;
-	justify-content: center;
-	text-align: center;
-	font-family: typicons;
-	line-height: 1em;
-	cursor: pointer;
-}
 section {
 	position: relative;
 	box-sizing: border-box;
 }
-div#ide {
+#ide {
 	display:flex;
 	align-self: stretch;
 	flex: 1 0 0;
 	height: 100%;
 }
-section#icons {
+#icons {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
     padding-bottom: .5rem;
     & > * + * {
         margin-left: .1em;
@@ -70,55 +62,7 @@ section#icons {
 		}
 	}
 }
-div.bouton {
-	font-family: typicons;
-	background-color: hsl(120, 43%, 80%);
-    border:2px solid;
-	font-size: 2em;
-	.icon;
-    border-radius: 100%;
-//	text-shadow: -1px -1px 1px rgba(0,0,0,.5), 1px 1px 1px rgba(255,255,255,.8);
-//	box-shadow: -2px -2px 2px rgba(0,0,0,.5) inset, 2px 2px 2px rgba(255,255,255,.8) inset;
-	color: hsl(120, 43%, 40%);
-	&.effacer:before {
-		content: "\e0d9";
-	}
-	&.lire {
-		&:before {
-			content: "\e0ad";
-		}
-		& + * {
-			display: none;
-		}
-		&.actif {
-			display: none;
-			& + * {
-				display: inherit;
-			}
-			& + * ~ * {
-				background-color:#ccc;
-				color:#999;
-			}
-		}
-	}
-	&.pause {
-		background-color: yellow;
-		color: #999900;
-		&:before {
-			content: "\e0ab";
-		}
-	}
-	&.avancer:before {
-		content: "\e048";
-	}
-	&.entrer:before {
-		content: "\e007";
-	}
-	&.sortir:before {
-		content: "\e022";
-	}
-}
-section#plan {
+#plan {
 	flex: 1 1 auto;
     & > svg {
         display:block;
@@ -130,7 +74,7 @@ section#plan {
 		fill: none;
 	}
 }
-section#control {
+#control {
 	display:flex;
     flex-direction:column;
     flex: 0 0 auto;
@@ -138,7 +82,7 @@ section#control {
     padding: .5em;
     background-color:lightgray;
 }
-section#code {
+#code {
 	position: relative;
 	display:flex;
 	flex: 1 0 auto;
